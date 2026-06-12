@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Тренажер по механике</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Подготовка к тесту</p>
+        <h1>Механика</h1>
+      </div>
+      <div class="summary" id="summary"></div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel controls" aria-label="Настройки теста">
+        <label>
+          Тест
+          <select id="testSelect"></select>
+        </label>
+
+        <label>
+          Порядок
+          <select id="orderSelect">
+            <option value="source">Как в PDF</option>
+            <option value="shuffle">Случайный</option>
+          </select>
+        </label>
+
+        <div class="button-row">
+          <button type="button" id="restartBtn">Сначала</button>
+          <button type="button" id="resetBtn" class="ghost">Сбросить прогресс</button>
+        </div>
+
+        <nav class="question-list" id="questionList" aria-label="Список вопросов"></nav>
+      </aside>
+
+      <section class="panel question-card" id="questionCard" aria-live="polite"></section>
+    </main>
+
+    <script src="data/questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
