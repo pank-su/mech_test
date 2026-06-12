@@ -127,20 +127,20 @@
     const optionsHtml = question.options.length
       ? `<div class="option-list">${question.options.map((option, index) => renderOption(question, entry, option, index)).join("")}</div>`
       : '<p class="empty-options">Варианты ответа для этой страницы нужно уточнить.</p>';
-    const formulaHtml = question.formula ? `<div class="formula">${escapeHtml(question.formula)}</div>` : "";
+    const formulaHtml = question.formula ? `<div class="formula">${formatInline(question.formula)}</div>` : "";
     const mediaHtml = question.media
       ? `<figure class="question-media"><img src="${escapeAttribute(question.media)}" alt="Иллюстрация к вопросу"></figure>`
       : "";
     const originalHtml = question.pageImage
       ? `<details class="original"><summary>Открыть оригинальную страницу PDF</summary><img src="${escapeAttribute(question.pageImage)}" alt="Оригинал: ${escapeAttribute(question.source)}, страница ${question.page}"></details>`
       : "";
-    const feedbackHtml = entry.feedback ? `<div class="feedback ${entry.feedback.kind}">${entry.feedback.text}</div>` : "";
+    const feedbackHtml = entry.feedback ? `<div class="feedback ${entry.feedback.kind}">${formatInline(entry.feedback.text)}</div>` : "";
 
     questionCard.innerHTML = `
       <div class="meta">
         <span class="pill">${typeText}</span>
       </div>
-      <p class="question-text">${escapeHtml(question.text)}</p>
+      <p class="question-text">${formatInline(question.text)}</p>
       ${mediaHtml}
       ${formulaHtml}
       ${optionsHtml}
@@ -172,7 +172,7 @@
     return `
       <label class="option">
         <input type="${inputType}" name="answer-${escapeAttribute(question.id)}" data-option="${index}" ${checked}>
-        <span>${index + 1}. ${escapeHtml(option)}</span>
+        <span>${index + 1}. ${formatInline(option)}</span>
       </label>
     `;
   }
@@ -271,6 +271,13 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function formatInline(value) {
+    return escapeHtml(value).replace(/([A-Za-zА-Яа-яΑ-Ωα-ω])⃗([A-Za-zА-Яа-я0-9₀-₉]*)/gu, (_match, base, subscript) => {
+      const sub = subscript ? `<sub>${subscript}</sub>` : "";
+      return `<span class="vec">${base}${sub}</span>`;
+    });
   }
 
   function escapeAttribute(value) {

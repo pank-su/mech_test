@@ -209,6 +209,34 @@ button.ghost:hover {
   overflow-x: auto;
 }
 
+.vec {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.03em;
+  padding-top: 0.16em;
+  line-height: 1.1;
+}
+
+.vec::before {
+  content: "→";
+  position: absolute;
+  top: -0.62em;
+  right: 0;
+  left: 0;
+  color: currentColor;
+  font-family: "Times New Roman", serif;
+  font-size: 0.7em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.vec sub {
+  font-size: 0.68em;
+  line-height: 0;
+  vertical-align: -0.25em;
+}
+
 .question-media {
   display: inline-block;
   max-width: min(100%, 46rem);
