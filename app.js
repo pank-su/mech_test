@@ -15,7 +15,7 @@
 
   const state = {
     selectedTest: "all",
-    order: "source",
+    order: "shuffle",
     index: 0,
     sequence: [],
     progress: loadProgress()
@@ -28,6 +28,7 @@
       '<option value="all">Все вопросы</option>',
       ...tests.map((test) => `<option value="${escapeHtml(test.id)}">${escapeHtml(test.title)}</option>`)
     ].join("");
+    orderSelect.value = state.order;
 
     testSelect.addEventListener("change", () => {
       state.selectedTest = testSelect.value;
